@@ -1,0 +1,240 @@
+package Projekt;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.LiteralNode;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+/**
+ * Created by maus on 10.11.2015.
+ */
+public class Kysimus extends Application {
+    Stage window;
+    Stage windowHelp;
+    BorderPane layOut;
+    HBox topMenu;
+    VBox centreVbox;
+    HBox bottomMenu;
+    HBox checkNext;
+    VBox vbox;
+    Button buttonStart;
+    Button buttonFinish;
+    Button buttonCheck;
+    Button buttonNext;
+    Button buttonHelp;
+    Label question;
+    ImageView sign;
+    ToggleGroup vastused;
+    RadioButton rb1;
+    RadioButton rb2;
+    RadioButton rb3;
+    RadioButton rb4;
+    ArrayList countRight;
+    ArrayList countWrong;
+    ArrayList<RadioButton> list;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        //Koosta mängu layout
+        window = primaryStage;
+        setLayout();
+        clickOnHelp();
+        clickOnNext();
+        clickOnCheck();
+        clickOnFinish();
+    }
+
+    public HBox checkNext() {
+        checkNext = new HBox();
+        checkNext.setPadding(new Insets(10, 0, 10, 10));
+        checkNext.setSpacing(15);
+        checkNext.setAlignment(Pos.CENTER);
+
+        buttonCheck = new Button("Kontrolli");
+        buttonCheck.setPrefSize(100, 18);
+//        buttonCheck.setDisable(true);
+        buttonNext = new Button("Järgmine");
+        buttonNext.setPrefSize(100, 18);
+
+        checkNext.getChildren().addAll(buttonCheck, buttonNext);
+        return checkNext;
+    }
+
+    public ImageView generateSign() {
+        int   rnd     = (int) (Math.random() * 8) + 1;
+        Image picture = new Image("res/Cardinal" + rnd + ".png");
+        sign = new ImageView(picture);
+        sign.setFitHeight(150);
+        sign.setPreserveRatio(true);
+        sign.setId(Integer.toString(rnd)); //String int-ks saab Integer.parseInt(string)
+        return sign;
+    }
+
+    public VBox answers() {
+        vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(0, 0, 0, 20));
+
+        ToggleGroup vastused = new ToggleGroup();
+        rb1 = new RadioButton("Põhjatooder");
+        rb2 = new RadioButton("Lõunatooder");
+        rb3 = new RadioButton("Idatooder");
+        rb4 = new RadioButton("Läänetooder");
+        rb1.setToggleGroup(vastused);
+        rb2.setToggleGroup(vastused);
+        rb3.setToggleGroup(vastused);
+        rb4.setToggleGroup(vastused);
+
+        list = new ArrayList<>();
+        list.add(rb1);
+        list.add(rb2);
+        list.add(rb3);
+        list.add(rb4);
+
+        //Paneb vastused erinevas järjekorras (Lisada see clickOnNextButtonile)
+        for (int i = 0; i < 4; i++) {
+            int rnd = (int) (Math.random() * (4 - i));
+            vbox.getChildren().add(list.get(rnd));
+            list.remove(rnd);
+        }
+        return vbox;
+    }
+
+    private VBox centreVbox() {
+        centreVbox = new VBox();
+        centreVbox.setSpacing(15);
+        centreVbox.setPadding(new Insets(5, 0, 5, 0));
+        centreVbox.setAlignment(Pos.CENTER);
+        centreVbox.setStyle("-fx-background-color: #99CCFF");
+
+        question = new Label("Milline meremärk on kujutatud alloleval pildil?");
+        question.setFont(Font.font(15));
+
+        centreVbox.getChildren().addAll(question, generateSign(), answers(), checkNext());
+
+        return centreVbox;
+    }
+
+    private void bottomMenu() {
+        bottomMenu = new HBox();
+        bottomMenu.setPadding(new Insets(10, 0, 10, 10));
+        bottomMenu.setSpacing(15);
+        bottomMenu.setAlignment(Pos.CENTER);
+
+        buttonHelp = new Button("Spikker");
+        buttonHelp.getStyleClass().add("buttonFinish");
+        buttonHelp.setPrefSize(100, 18);
+
+        bottomMenu.getChildren().add(buttonHelp);
+    }
+
+    private void clickOnHelp() {
+        buttonHelp.setOnAction(e -> {
+            windowHelp = new Stage();
+            windowHelp.setTitle("Kardinaalmärgid");
+
+            Image image1 = new Image("res/Spikker.png");
+            ImageView Spikker = new ImageView();
+            Spikker.setImage(image1);
+
+            StackPane stack = new StackPane();
+            Scene sceneSpikker = new Scene(stack);
+            stack.getChildren().add(Spikker);
+
+            windowHelp.setScene(sceneSpikker);
+            windowHelp.setResizable(false);
+            windowHelp.show();
+        });
+    }
+
+    private void clickOnNext() {
+        buttonNext.setOnAction(event -> {
+            rb1.setSelected(false);
+            rb2.setSelected(false);
+            rb3.setSelected(false);
+            rb4.setSelected(false);
+            centreVbox.getChildren().remove(1, 2);
+            centreVbox.getChildren().add(1, generateSign());
+            centreVbox.getChildren().remove(2, 3);
+            centreVbox.getChildren().add(2, answers());
+
+        });
+    }
+
+    private void clickOnCheck() {
+        countRight = new ArrayList();
+        countWrong = new ArrayList();
+        buttonCheck.setOnAction(event -> {
+            if (rb1.isSelected() && (sign.getId().equals("4") || sign.getId().equals("8"))) {
+                countRight.add(1);
+                System.out.println("Õigeid vastuseid: " + countRight);
+            } else if (rb2.isSelected() && (sign.getId().equals("2") || sign.getId().equals("6"))) {
+                countRight.add(1);
+                System.out.println("Õigeid vastuseid: " + countRight);
+            } else if (rb3.isSelected() && (sign.getId().equals("1") || sign.getId().equals("5"))) {
+                countRight.add(1);
+                System.out.println("Õigeid vastuseid: " + countRight);
+            } else if (rb4.isSelected() && (sign.getId().equals("3") || sign.getId().equals("7"))) {
+                countRight.add(1);
+                System.out.println("Õigeid vastuseid: " + countRight);
+            } else {
+                countWrong.add(1);
+                System.out.println("Valesid vastuseid: " + countWrong);
+            }
+        });
+    }
+
+    private void clickOnFinish() {
+        buttonFinish.setOnAction(event -> {
+            Label kokkuvote = new Label("Õigeid vastuseid on " + countRight.size());
+            layOut.setCenter(kokkuvote);
+        });
+    }
+
+    private void topMenu() {
+        topMenu = new HBox();
+        topMenu.getStyleClass().add("topMenu");
+
+        buttonStart = new Button("Alusta");
+        buttonStart.setPrefSize(100, 18);
+        buttonFinish = new Button("Lõpeta");
+        buttonFinish.setPrefSize(100, 18);
+        buttonFinish.getStyleClass().add("buttonFinish");
+        topMenu.getChildren().addAll(buttonStart, buttonFinish);
+    }
+
+    private void setLayout() {
+        layOut = new BorderPane();
+        layOut.getStyleClass().add("layout");
+
+        topMenu();
+        layOut.setTop(topMenu);
+
+        layOut.setCenter(centreVbox());
+
+        bottomMenu();
+        layOut.setBottom(bottomMenu);
+
+        Scene scene = new Scene(layOut, 350, 470);
+        scene.getStylesheets().add("Projekt/style.css");
+        window.setScene(scene);
+        window.show();
+        window.setOnCloseRequest(event -> System.exit(0));
+    }
+
+}

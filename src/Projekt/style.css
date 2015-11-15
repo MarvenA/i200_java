@@ -1,0 +1,21 @@
+.buttonFinish {
+    -fx-text-fill: #006464;
+    -fx-background-color: #99CCFF;
+    -fx-border-radius: 20;
+    -fx-background-radius: 0;
+    -fx-padding: 5;
+}
+
+.button:hover {
+        -fx-background-color: white;
+}
+
+.layout {
+    -fx-background-color: white;
+}
+
+.topMenu {
+    -fx-padding: 10, 0, 10, 10;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}

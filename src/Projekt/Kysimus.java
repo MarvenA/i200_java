@@ -66,10 +66,11 @@ public class Kysimus extends Application {
         checkNext.setAlignment(Pos.CENTER);
 
         buttonCheck = new Button("Kontrolli");
-        buttonCheck.setPrefSize(100, 18);
+        buttonCheck.getStyleClass().add("buttonChckNxt");
 //        buttonCheck.setDisable(true);
         buttonNext = new Button("Järgmine");
-        buttonNext.setPrefSize(100, 18);
+        buttonNext.getStyleClass().add("buttonChckNxt");
+
 
         checkNext.getChildren().addAll(buttonCheck, buttonNext);
         return checkNext;
@@ -117,14 +118,9 @@ public class Kysimus extends Application {
 
     private VBox centreVbox() {
         centreVbox = new VBox();
-        centreVbox.setSpacing(15);
-        centreVbox.setPadding(new Insets(5, 0, 5, 0));
-        centreVbox.setAlignment(Pos.CENTER);
-        centreVbox.setStyle("-fx-background-color: #99CCFF");
+        centreVbox.getStyleClass().add("Vbox");
 
-        question = new Label("Milline meremärk on kujutatud alloleval pildil?");
-        question.setFont(Font.font(15));
-
+        question = new Label("Milline meremärk on kujutatud alloleval pildil xxxxxxxxxxxxxxxxx?");
         centreVbox.getChildren().addAll(question, generateSign(), answers(), checkNext());
 
         return centreVbox;
@@ -137,7 +133,6 @@ public class Kysimus extends Application {
         bottomMenu.setAlignment(Pos.CENTER);
 
         buttonHelp = new Button("Spikker");
-        buttonHelp.getStyleClass().add("buttonFinish");
         buttonHelp.setPrefSize(100, 18);
 
         bottomMenu.getChildren().add(buttonHelp);
@@ -211,30 +206,24 @@ public class Kysimus extends Application {
         topMenu.getStyleClass().add("topMenu");
 
         buttonStart = new Button("Alusta");
-        buttonStart.setPrefSize(100, 18);
         buttonFinish = new Button("Lõpeta");
-        buttonFinish.setPrefSize(100, 18);
-        buttonFinish.getStyleClass().add("buttonFinish");
         topMenu.getChildren().addAll(buttonStart, buttonFinish);
     }
 
     private void setLayout() {
         layOut = new BorderPane();
-        layOut.getStyleClass().add("layout");
 
         topMenu();
         layOut.setTop(topMenu);
-
         layOut.setCenter(centreVbox());
 
         bottomMenu();
         layOut.setBottom(bottomMenu);
 
-        Scene scene = new Scene(layOut, 350, 470);
+        Scene scene = new Scene(layOut);
         scene.getStylesheets().add("Projekt/style.css");
         window.setScene(scene);
         window.show();
         window.setOnCloseRequest(event -> System.exit(0));
     }
-
 }

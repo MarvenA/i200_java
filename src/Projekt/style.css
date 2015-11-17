@@ -1,21 +1,58 @@
-.buttonFinish {
-    -fx-text-fill: #006464;
-    -fx-background-color: #99CCFF;
-    -fx-border-radius: 20;
+.topMenu {
+    -fx-padding: 10, 0, 10, 0;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-border-color: white;
+    -fx-border-radius: 0;
+    -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-padding: 5;
+    -fx-background-insets: 1;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 100;
+    -fx-font-size: 12;
 }
 
 .button:hover {
-        -fx-background-color: white;
-}
-
-.layout {
     -fx-background-color: white;
+    -fx-text-fill: darkcyan;
+    -fx-font-weight: bold;
 }
 
-.topMenu {
-    -fx-padding: 10, 0, 10, 10;
-    -fx-spacing: 15;
+.buttonChckNxt{
+    -fx-text-fill: white;
+    -fx-background-color: darkcyan;
+}
+
+.root {
+    -fx-background-color: darkcyan;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+    -fx-pref-width: 400;
+}
+
+.Vbox {
+    -fx-spacing: 20;
+    -fx-padding: 5,0,5,0;
     -fx-alignment: center;
+    -fx-background-color: cadetblue;
+}
+
+.radio-button:hover{
+    -fx-font-weight: bold;
+}
+.radio-button {
+    -fx-text-fill: white;
+}
+
+.label{
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-padding: 20,0,0,0;
 }

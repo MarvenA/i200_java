@@ -67,10 +67,9 @@ public class Kysimus extends Application {
 
         buttonCheck = new Button("Kontrolli");
         buttonCheck.getStyleClass().add("buttonChckNxt");
-//        buttonCheck.setDisable(true);
         buttonNext = new Button("Järgmine");
         buttonNext.getStyleClass().add("buttonChckNxt");
-
+        buttonNext.setDisable(true);
 
         checkNext.getChildren().addAll(buttonCheck, buttonNext);
         return checkNext;
@@ -143,12 +142,12 @@ public class Kysimus extends Application {
             windowHelp = new Stage();
             windowHelp.setTitle("Kardinaalmärgid");
 
-            Image image1 = new Image("res/Spikker.png");
+            Image     image1  = new Image("res/Spikker.png");
             ImageView Spikker = new ImageView();
             Spikker.setImage(image1);
 
-            StackPane stack = new StackPane();
-            Scene sceneSpikker = new Scene(stack);
+            StackPane stack        = new StackPane();
+            Scene     sceneSpikker = new Scene(stack);
             stack.getChildren().add(Spikker);
 
             windowHelp.setScene(sceneSpikker);
@@ -163,11 +162,14 @@ public class Kysimus extends Application {
             rb2.setSelected(false);
             rb3.setSelected(false);
             rb4.setSelected(false);
+
             centreVbox.getChildren().remove(1, 2);
             centreVbox.getChildren().add(1, generateSign());
             centreVbox.getChildren().remove(2, 3);
             centreVbox.getChildren().add(2, answers());
 
+            buttonNext.setDisable(true);
+            buttonCheck.setDisable(false);
         });
     }
 
@@ -191,12 +193,23 @@ public class Kysimus extends Application {
                 countWrong.add(1);
                 System.out.println("Valesid vastuseid: " + countWrong);
             }
+            buttonNext.setDisable(false);
+            buttonCheck.setDisable(true);
         });
     }
 
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
-            Label kokkuvote = new Label("Õigeid vastuseid on " + countRight.size());
+            int sum = countRight.size() + countWrong.size();
+            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
+            Label countR = new Label("Õigeid vastuseid: " + countRight.size());
+            Label countW = new Label("Valesid vastuseid: " + countWrong.size());
+
+            VBox kokkuvote = new VBox();
+            kokkuvote.getChildren().addAll(total, countR, countW);
+            kokkuvote.setAlignment(Pos.CENTER);
+            kokkuvote.getStyleClass().add("kokkuvote");
+
             layOut.setCenter(kokkuvote);
         });
     }
@@ -223,6 +236,7 @@ public class Kysimus extends Application {
         Scene scene = new Scene(layOut);
         scene.getStylesheets().add("Projekt/style.css");
         window.setScene(scene);
+        window.setTitle("Test");
         window.show();
         window.setOnCloseRequest(event -> System.exit(0));
     }

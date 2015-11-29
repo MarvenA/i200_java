@@ -1,6 +1,8 @@
 package Projekt;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -79,7 +81,7 @@ public class Kysimus extends Application {
         int   rnd     = (int) (Math.random() * 8) + 1;
         Image picture = new Image("res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
-        sign.setFitHeight(150);
+        sign.setFitHeight(200);
         sign.setPreserveRatio(true);
         sign.setId(Integer.toString(rnd)); //String int-ks saab Integer.parseInt(string)
         return sign;
@@ -92,9 +94,13 @@ public class Kysimus extends Application {
 
         ToggleGroup vastused = new ToggleGroup();
         rb1 = new RadioButton("Põhjatooder");
+        rb1.setUserData("Põhjatooder");
         rb2 = new RadioButton("Lõunatooder");
+        rb2.setUserData("Lõunatooder");
         rb3 = new RadioButton("Idatooder");
+        rb3.setUserData("Idatooder");
         rb4 = new RadioButton("Läänetooder");
+        rb4.setUserData("Läänetooder");
         rb1.setToggleGroup(vastused);
         rb2.setToggleGroup(vastused);
         rb3.setToggleGroup(vastused);
@@ -176,22 +182,18 @@ public class Kysimus extends Application {
     private void clickOnCheck() {
         countRight = new ArrayList();
         countWrong = new ArrayList();
+
         buttonCheck.setOnAction(event -> {
             if (rb1.isSelected() && (sign.getId().equals("4") || sign.getId().equals("8"))) {
                 countRight.add(1);
-                System.out.println("Õigeid vastuseid: " + countRight);
             } else if (rb2.isSelected() && (sign.getId().equals("2") || sign.getId().equals("6"))) {
                 countRight.add(1);
-                System.out.println("Õigeid vastuseid: " + countRight);
             } else if (rb3.isSelected() && (sign.getId().equals("1") || sign.getId().equals("5"))) {
                 countRight.add(1);
-                System.out.println("Õigeid vastuseid: " + countRight);
             } else if (rb4.isSelected() && (sign.getId().equals("3") || sign.getId().equals("7"))) {
                 countRight.add(1);
-                System.out.println("Õigeid vastuseid: " + countRight);
             } else {
                 countWrong.add(1);
-                System.out.println("Valesid vastuseid: " + countWrong);
             }
             buttonNext.setDisable(false);
             buttonCheck.setDisable(true);
@@ -200,13 +202,22 @@ public class Kysimus extends Application {
 
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
-            int sum = countRight.size() + countWrong.size();
-            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
+            int   sum    = countRight.size() + countWrong.size();
+            Label total  = new Label("Vastasid kokku " + sum + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid: " + countRight.size());
             Label countW = new Label("Valesid vastuseid: " + countWrong.size());
+            Image wheel = new Image("res/Rool.png");
+            ImageView ivWheel = new ImageView(wheel);
+            ivWheel.setFitHeight(120);
+            ivWheel.setPreserveRatio(true);
+
+            Image anchor = new Image("res/Anchor.png");
+            ImageView ivAnchor = new ImageView(anchor);
+            ivAnchor.setFitHeight(120);
+            ivAnchor.setPreserveRatio(true);
 
             VBox kokkuvote = new VBox();
-            kokkuvote.getChildren().addAll(total, countR, countW);
+            kokkuvote.getChildren().addAll(ivWheel, total, countR, countW,ivAnchor);
             kokkuvote.setAlignment(Pos.CENTER);
             kokkuvote.getStyleClass().add("kokkuvote");
 

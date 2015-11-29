@@ -42,11 +42,25 @@
     -fx-background-color: cadetblue;
 }
 
+.radio-button {
+    -fx-text-fill: white;
+    -fx-mark-color: darkcyan;
+}
+
 .radio-button:hover{
     -fx-font-weight: bold;
 }
-.radio-button {
-    -fx-text-fill: white;
+
+.radio-button:selected {
+    -fx-font-weight: bold;
+}
+
+.radio-correct {
+    -fx-mark-color: green;
+}
+
+.radio-incorrect {
+    -fx-mark-color: red;
 }
 
 .label{
@@ -61,3 +75,4 @@
     -fx-font-weight: bold;
     -fx-font-size: 16;
 }
+

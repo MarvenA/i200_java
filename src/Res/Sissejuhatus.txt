@@ -1,0 +1,7 @@
+Tegemist on valikvastustega kardinaalmäride testiga.
+Kardinaalmärgid osutavad vees ohtlikku piirkonda ja näitavad, mis ilmakaarest
+tuleb neist mööduda.
+Kardinaalmärgid on eristatavad 3 tunnuse abil: topimärk, valgussignaalid ja värvikombinatsioon.
+Musta värvi asukoht värvilisel poil langeb kokku topimärgi teravikkude suunaga.
+Alustamiseks vajuta "Alusta" ja lõpetamiseks "Lõpeta".
+Kui oled hädas kliki "Spikker".

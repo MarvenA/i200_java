@@ -5,7 +5,8 @@ package Projekt;
  */
 public class Game {
     public Game(){
-        System.out.println("Testime");
         Question question = new Question();
+        question.clickOnStart();
     }
 }
+

@@ -1,31 +1,26 @@
 package Projekt;
 
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.LiteralNode;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Created by maus on 10.11.2015.
  */
-public class Kysimus extends Application {
+public class Kysimus {
     Stage window;
     Stage windowHelp;
     BorderPane layOut;
@@ -50,10 +45,9 @@ public class Kysimus extends Application {
     ArrayList countWrong;
     ArrayList<RadioButton> list;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public Kysimus() {
         //Koosta mängu layout
-        window = primaryStage;
+        window = new Stage();
         setLayout();
         clickOnHelp();
         clickOnNext();
@@ -112,7 +106,6 @@ public class Kysimus extends Application {
         list.add(rb3);
         list.add(rb4);
 
-        //Paneb vastused erinevas järjekorras (Lisada see clickOnNextButtonile)
         for (int i = 0; i < 4; i++) {
             int rnd = (int) (Math.random() * (4 - i));
             vbox.getChildren().add(list.get(rnd));
@@ -202,22 +195,22 @@ public class Kysimus extends Application {
 
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
-            int   sum    = countRight.size() + countWrong.size();
-            Label total  = new Label("Vastasid kokku " + sum + " küsimusele.");
-            Label countR = new Label("Õigeid vastuseid: " + countRight.size());
-            Label countW = new Label("Valesid vastuseid: " + countWrong.size());
-            Image wheel = new Image("res/Rool.png");
+            int       sum     = countRight.size() + countWrong.size();
+            Label     total   = new Label("Vastasid kokku " + sum + " küsimusele.");
+            Label     countR  = new Label("Õigeid vastuseid: " + countRight.size());
+            Label     countW  = new Label("Valesid vastuseid: " + countWrong.size());
+            Image     wheel   = new Image("res/Rool.png");
             ImageView ivWheel = new ImageView(wheel);
             ivWheel.setFitHeight(120);
             ivWheel.setPreserveRatio(true);
 
-            Image anchor = new Image("res/Anchor.png");
+            Image     anchor   = new Image("res/Anchor.png");
             ImageView ivAnchor = new ImageView(anchor);
             ivAnchor.setFitHeight(120);
             ivAnchor.setPreserveRatio(true);
 
             VBox kokkuvote = new VBox();
-            kokkuvote.getChildren().addAll(ivWheel, total, countR, countW,ivAnchor);
+            kokkuvote.getChildren().addAll(ivWheel, total, countR, countW, ivAnchor);
             kokkuvote.setAlignment(Pos.CENTER);
             kokkuvote.getStyleClass().add("kokkuvote");
 

@@ -72,7 +72,7 @@ public class Kysimus {
     }
 
     public ImageView generateSign() {
-        int rnd = (int) (Math.random() * 8) + 1;
+        int   rnd     = (int) (Math.random() * 8) + 1;
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
@@ -141,12 +141,12 @@ public class Kysimus {
             windowHelp = new Stage();
             windowHelp.setTitle("Kardinaalmärgid");
 
-            Image image1 = new Image("res/Spikker.png");
+            Image     image1  = new Image("res/Spikker.png");
             ImageView Spikker = new ImageView();
             Spikker.setImage(image1);
 
-            StackPane stack = new StackPane();
-            Scene sceneSpikker = new Scene(stack);
+            StackPane stack        = new StackPane();
+            Scene     sceneSpikker = new Scene(stack);
             stack.getChildren().add(Spikker);
 
             windowHelp.setScene(sceneSpikker);
@@ -195,19 +195,13 @@ public class Kysimus {
 
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
-<<<<<<< HEAD
-            int       sum     = countRight.size() + countWrong.size();
-            Label     total   = new Label("Vastasid kokku " + sum + " küsimusele.");
-            Label     countR  = new Label("Õigeid vastuseid: " + countRight.size());
-            Label     countW  = new Label("Valesid vastuseid: " + countWrong.size());
-            Image     wheel   = new Image("res/Rool.png");
-=======
-            int sum = countRight.size() + countWrong.size();
-            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
+
+            int   sum    = countRight.size() + countWrong.size();
+            Label total  = new Label("Vastasid kokku " + sum + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid: " + countRight.size());
             Label countW = new Label("Valesid vastuseid: " + countWrong.size());
-            Image wheel = new Image("res/Rool.png");
->>>>>>> 0b5bfe6becfab0ddc86dd1eba1138e61efa19f3a
+            Image wheel  = new Image("res/Rool.png");
+
             ImageView ivWheel = new ImageView(wheel);
             ivWheel.setFitHeight(120);
             ivWheel.setPreserveRatio(true);

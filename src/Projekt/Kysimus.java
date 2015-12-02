@@ -1,31 +1,26 @@
 package Projekt;
 
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.LiteralNode;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Created by maus on 10.11.2015.
  */
-public class Kysimus extends Application {
+public class Kysimus {
     Stage window;
     Stage windowHelp;
     BorderPane layOut;
@@ -50,10 +45,9 @@ public class Kysimus extends Application {
     ArrayList countWrong;
     ArrayList<RadioButton> list;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public Kysimus() {
         //Koosta mängu layout
-        window = primaryStage;
+        window = new Stage();
         setLayout();
         clickOnHelp();
         clickOnNext();
@@ -78,8 +72,8 @@ public class Kysimus extends Application {
     }
 
     public ImageView generateSign() {
-        int   rnd     = (int) (Math.random() * 8) + 1;
-        Image picture = new Image("res/Cardinal" + rnd + ".png");
+        int rnd = (int) (Math.random() * 8) + 1;
+        Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
         sign.setPreserveRatio(true);
@@ -148,12 +142,12 @@ public class Kysimus extends Application {
             windowHelp = new Stage();
             windowHelp.setTitle("Kardinaalmärgid");
 
-            Image     image1  = new Image("res/Spikker.png");
+            Image image1 = new Image("res/Spikker.png");
             ImageView Spikker = new ImageView();
             Spikker.setImage(image1);
 
-            StackPane stack        = new StackPane();
-            Scene     sceneSpikker = new Scene(stack);
+            StackPane stack = new StackPane();
+            Scene sceneSpikker = new Scene(stack);
             stack.getChildren().add(Spikker);
 
             windowHelp.setScene(sceneSpikker);
@@ -202,8 +196,8 @@ public class Kysimus extends Application {
 
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
-            int   sum    = countRight.size() + countWrong.size();
-            Label total  = new Label("Vastasid kokku " + sum + " küsimusele.");
+            int sum = countRight.size() + countWrong.size();
+            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid: " + countRight.size());
             Label countW = new Label("Valesid vastuseid: " + countWrong.size());
             Image wheel = new Image("res/Rool.png");
@@ -217,7 +211,7 @@ public class Kysimus extends Application {
             ivAnchor.setPreserveRatio(true);
 
             VBox kokkuvote = new VBox();
-            kokkuvote.getChildren().addAll(ivWheel, total, countR, countW,ivAnchor);
+            kokkuvote.getChildren().addAll(ivWheel, total, countR, countW, ivAnchor);
             kokkuvote.setAlignment(Pos.CENTER);
             kokkuvote.getStyleClass().add("kokkuvote");
 

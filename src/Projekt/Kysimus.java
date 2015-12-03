@@ -1,7 +1,6 @@
 package Projekt;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,8 +33,6 @@ public class Kysimus {
     Button buttonCheck;
     Button buttonNext;
     Button buttonHelp;
-//    Label question;
-    ImageView sign;
     ToggleGroup vastused;
     RadioButton rb1;
     RadioButton rb2;
@@ -45,14 +42,11 @@ public class Kysimus {
     ArrayList countWrong;
     ArrayList<RadioButton> list;
     Text question = new Text();
-
+    Sign sign = new Sign();
 
     public Kysimus() {
         //Koosta mängu layout
         window = new Stage();
-
-
-
         setLayout();
         clickOnHelp();
         clickOnNext();
@@ -62,28 +56,14 @@ public class Kysimus {
 
     public HBox checkNext() {
         checkNext = new HBox();
-        checkNext.setPadding(new Insets(10, 0, 10, 10));
-        checkNext.setSpacing(15);
-        checkNext.setAlignment(Pos.CENTER);
+        checkNext.getStyleClass().add("Hbox");
 
         buttonCheck = new Button("Kontrolli");
-        buttonCheck.getStyleClass().add("buttonChckNxt");
         buttonNext = new Button("Järgmine");
-        buttonNext.getStyleClass().add("buttonChckNxt");
         buttonNext.setDisable(true);
 
         checkNext.getChildren().addAll(buttonCheck, buttonNext);
         return checkNext;
-    }
-
-    public ImageView generateSign() {
-        int rnd = (int) (Math.random() * 8) + 1;
-        Image picture = new Image("Res/Cardinal" + rnd + ".png");
-        sign = new ImageView(picture);
-        sign.setFitHeight(200);
-        sign.setPreserveRatio(true);
-        sign.setId(Integer.toString(rnd)); //String int-ks saab Integer.parseInt(string)
-        return sign;
     }
 
     public VBox answers() {
@@ -91,7 +71,7 @@ public class Kysimus {
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(0, 0, 0, 20));
 
-        ToggleGroup vastused = new ToggleGroup();
+        vastused = new ToggleGroup();
         rb1 = new RadioButton("Põhjatooder");
         rb1.setUserData("Põhjatooder");
         rb2 = new RadioButton("Lõunatooder");
@@ -117,27 +97,6 @@ public class Kysimus {
             list.remove(rnd);
         }
         return vbox;
-    }
-
-    private VBox centreVbox() {
-        centreVbox = new VBox();
-        centreVbox.getStyleClass().add("Vbox");
-
-        //question = new Label("Milline meremärk on kujutatud alloleval pildil xxxxxxxxxxxxxxxxx?");
-
-        centreVbox.getChildren().addAll(question.newText(), generateSign(), answers(), checkNext());
-
-        return centreVbox;
-    }
-
-    private void bottomMenu() {
-        bottomMenu = new HBox();
-        bottomMenu.getStyleClass().add("Hbox");
-
-        buttonHelp = new Button("Spikker");
-        buttonHelp.setPrefSize(100, 18);
-
-        bottomMenu.getChildren().add(buttonHelp);
     }
 
     private void clickOnHelp() {
@@ -169,7 +128,7 @@ public class Kysimus {
             centreVbox.getChildren().remove(0, 1);
             centreVbox.getChildren().add(0, question.newText());
             centreVbox.getChildren().remove(1, 2);
-            centreVbox.getChildren().add(1, generateSign());
+            centreVbox.getChildren().add(1, sign.generateSign());
             centreVbox.getChildren().remove(2, 3);
             centreVbox.getChildren().add(2, answers());
 
@@ -183,13 +142,13 @@ public class Kysimus {
         countWrong = new ArrayList();
 
         buttonCheck.setOnAction(event -> {
-            if (rb1.isSelected() && (sign.getId().equals("4") || sign.getId().equals("8"))) {
+            if (rb1.isSelected() && (sign.number.equals("4") || sign.number.equals("8"))) {
                 countRight.add(1);
-            } else if (rb2.isSelected() && (sign.getId().equals("2") || sign.getId().equals("6"))) {
+            } else if (rb2.isSelected() && (sign.number.equals("2") || sign.number.equals("6"))) {
                 countRight.add(1);
-            } else if (rb3.isSelected() && (sign.getId().equals("1") || sign.getId().equals("5"))) {
+            } else if (rb3.isSelected() && (sign.number.equals("1") || sign.number.equals("5"))) {
                 countRight.add(1);
-            } else if (rb4.isSelected() && (sign.getId().equals("3") || sign.getId().equals("7"))) {
+            } else if (rb4.isSelected() && (sign.number.equals("3") || sign.number.equals("7"))) {
                 countRight.add(1);
             } else {
                 countWrong.add(1);
@@ -206,8 +165,8 @@ public class Kysimus {
             Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid: " + countRight.size());
             Label countW = new Label("Valesid vastuseid: " + countWrong.size());
-            Image wheel = new Image("res/Rool.png");
 
+            Image wheel = new Image("res/Rool.png");
             ImageView ivWheel = new ImageView(wheel);
             ivWheel.setFitHeight(120);
             ivWheel.setPreserveRatio(true);
@@ -219,31 +178,42 @@ public class Kysimus {
 
             VBox kokkuvote = new VBox();
             kokkuvote.getChildren().addAll(ivWheel, total, countR, countW, ivAnchor);
-            kokkuvote.setAlignment(Pos.CENTER);
             kokkuvote.getStyleClass().add("kokkuvote");
 
+            layOut.getChildren().removeAll(topMenu, bottomMenu);
             layOut.setCenter(kokkuvote);
         });
     }
 
-    private void topMenu() {
+    private HBox topMenu() {
         topMenu = new HBox();
         topMenu.getStyleClass().add("Hbox");
-
         buttonStart = new Button("Alusta");
         buttonFinish = new Button("Lõpeta");
         topMenu.getChildren().addAll(buttonStart, buttonFinish);
+        return topMenu;
+    }
+
+    private VBox centreVbox() {
+        centreVbox = new VBox();
+        centreVbox.getStyleClass().add("Vbox");
+        centreVbox.getChildren().addAll(question.newText(), sign.generateSign(), answers(), checkNext());
+        return centreVbox;
+    }
+
+    private HBox bottomMenu() {
+        bottomMenu = new HBox();
+        bottomMenu.getStyleClass().add("Hbox");
+        buttonHelp = new Button("Spikker");
+        bottomMenu.getChildren().add(buttonHelp);
+        return bottomMenu;
     }
 
     private void setLayout() {
         layOut = new BorderPane();
-
-        topMenu();
-        layOut.setTop(topMenu);
+        layOut.setTop(topMenu());
         layOut.setCenter(centreVbox());
-
-        bottomMenu();
-        layOut.setBottom(bottomMenu);
+        layOut.setBottom(bottomMenu());
 
         Scene scene = new Scene(layOut);
         scene.getStylesheets().add("Projekt/style.css");

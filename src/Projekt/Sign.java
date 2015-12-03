@@ -8,14 +8,15 @@ import javafx.scene.image.ImageView;
  */
 public class Sign {
     public ImageView sign;
+    String number;
 
-    public ImageView Sign() {
+    public ImageView generateSign() {
         int rnd = (int) (Math.random() * 8) + 1;
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
         sign.setPreserveRatio(true);
-        sign.setId(Integer.toString(rnd)); //String int-ks saab Integer.parseInt(string)
+        number = Integer.toString(rnd);
         return sign;
     }
 }

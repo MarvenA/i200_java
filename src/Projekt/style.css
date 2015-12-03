@@ -10,7 +10,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-insets: 1;
-    -fx-background-color: transparent;
+    -fx-background-color: darkcyan;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-pref-width: 100;
@@ -21,11 +21,6 @@
     -fx-background-color: white;
     -fx-text-fill: darkcyan;
     -fx-font-weight: bold;
-}
-
-.buttonChckNxt{
-    -fx-text-fill: white;
-    -fx-background-color: darkcyan;
 }
 
 .root {
@@ -58,11 +53,11 @@
 }
 
 .radio-correct {
-    -fx-mark-color: green;
+    -fx-text-fill: green;
 }
 
 .radio-incorrect {
-    -fx-mark-color: red;
+    -fx-mark-color: #b61413;
 }
 
 .label{
@@ -76,5 +71,6 @@
 .kokkuvote {
     -fx-font-weight: bold;
     -fx-font-size: 16;
+    -fx-alignment: center;
 }
 

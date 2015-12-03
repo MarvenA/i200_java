@@ -1,4 +1,4 @@
-.topMenu {
+.Hbox {
     -fx-padding: 10, 0, 10, 0;
     -fx-spacing: 15;
     -fx-alignment: center;
@@ -33,6 +33,7 @@
     -fx-font-size: 14;
     -fx-text-fill: white;
     -fx-pref-width: 400;
+    -fx-spacing: 15;
 }
 
 .Vbox {
@@ -40,6 +41,7 @@
     -fx-padding: 5,0,5,0;
     -fx-alignment: center;
     -fx-background-color: cadetblue;
+    -fx-wrap-text: true;
 }
 
 .radio-button {

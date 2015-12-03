@@ -34,7 +34,7 @@ public class Kysimus {
     Button buttonCheck;
     Button buttonNext;
     Button buttonHelp;
-    Label question;
+//    Label question;
     ImageView sign;
     ToggleGroup vastused;
     RadioButton rb1;
@@ -44,10 +44,15 @@ public class Kysimus {
     ArrayList countRight;
     ArrayList countWrong;
     ArrayList<RadioButton> list;
+    Text question = new Text();
+
 
     public Kysimus() {
         //Koosta mängu layout
         window = new Stage();
+
+
+
         setLayout();
         clickOnHelp();
         clickOnNext();
@@ -72,7 +77,7 @@ public class Kysimus {
     }
 
     public ImageView generateSign() {
-        int   rnd     = (int) (Math.random() * 8) + 1;
+        int rnd = (int) (Math.random() * 8) + 1;
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
@@ -118,17 +123,16 @@ public class Kysimus {
         centreVbox = new VBox();
         centreVbox.getStyleClass().add("Vbox");
 
-        question = new Label("Milline meremärk on kujutatud alloleval pildil xxxxxxxxxxxxxxxxx?");
-        centreVbox.getChildren().addAll(question, generateSign(), answers(), checkNext());
+        //question = new Label("Milline meremärk on kujutatud alloleval pildil xxxxxxxxxxxxxxxxx?");
+
+        centreVbox.getChildren().addAll(question.newText(), generateSign(), answers(), checkNext());
 
         return centreVbox;
     }
 
     private void bottomMenu() {
         bottomMenu = new HBox();
-        bottomMenu.setPadding(new Insets(10, 0, 10, 10));
-        bottomMenu.setSpacing(15);
-        bottomMenu.setAlignment(Pos.CENTER);
+        bottomMenu.getStyleClass().add("Hbox");
 
         buttonHelp = new Button("Spikker");
         buttonHelp.setPrefSize(100, 18);
@@ -141,12 +145,12 @@ public class Kysimus {
             windowHelp = new Stage();
             windowHelp.setTitle("Kardinaalmärgid");
 
-            Image     image1  = new Image("res/Spikker.png");
+            Image image1 = new Image("res/Spikker.png");
             ImageView Spikker = new ImageView();
             Spikker.setImage(image1);
 
-            StackPane stack        = new StackPane();
-            Scene     sceneSpikker = new Scene(stack);
+            StackPane stack = new StackPane();
+            Scene sceneSpikker = new Scene(stack);
             stack.getChildren().add(Spikker);
 
             windowHelp.setScene(sceneSpikker);
@@ -162,6 +166,8 @@ public class Kysimus {
             rb3.setSelected(false);
             rb4.setSelected(false);
 
+            centreVbox.getChildren().remove(0, 1);
+            centreVbox.getChildren().add(0, question.newText());
             centreVbox.getChildren().remove(1, 2);
             centreVbox.getChildren().add(1, generateSign());
             centreVbox.getChildren().remove(2, 3);
@@ -196,17 +202,17 @@ public class Kysimus {
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
 
-            int   sum    = countRight.size() + countWrong.size();
-            Label total  = new Label("Vastasid kokku " + sum + " küsimusele.");
+            int sum = countRight.size() + countWrong.size();
+            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid: " + countRight.size());
             Label countW = new Label("Valesid vastuseid: " + countWrong.size());
-            Image wheel  = new Image("res/Rool.png");
+            Image wheel = new Image("res/Rool.png");
 
             ImageView ivWheel = new ImageView(wheel);
             ivWheel.setFitHeight(120);
             ivWheel.setPreserveRatio(true);
 
-            Image     anchor   = new Image("res/Anchor.png");
+            Image anchor = new Image("res/Anchor.png");
             ImageView ivAnchor = new ImageView(anchor);
             ivAnchor.setFitHeight(120);
             ivAnchor.setPreserveRatio(true);
@@ -222,7 +228,7 @@ public class Kysimus {
 
     private void topMenu() {
         topMenu = new HBox();
-        topMenu.getStyleClass().add("topMenu");
+        topMenu.getStyleClass().add("Hbox");
 
         buttonStart = new Button("Alusta");
         buttonFinish = new Button("Lõpeta");

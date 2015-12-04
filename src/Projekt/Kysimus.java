@@ -197,7 +197,7 @@ public class Kysimus {
     private VBox centreVbox() {
         centreVbox = new VBox();
         centreVbox.getStyleClass().add("Vbox");
-        centreVbox.getChildren().addAll(question.newText(), sign.generateSign(), answers(), checkNext());
+        centreVbox.getChildren().addAll(question.newText(), sign.generateSign(), sign.answers(), checkNext());
         return centreVbox;
     }
 

@@ -1,8 +1,11 @@
 package Projekt;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +15,8 @@ import java.util.HashMap;
  */
 public class Sign {
     static ImageView sign;
-    private HashMap<String, String> answers;
+    static ArrayList vastused;
+    static int   rnd     = (int) (Math.random() * 8) + 1;
 
     public static Label question() {
         ArrayList<String> labels = new ArrayList();
@@ -29,34 +33,37 @@ public class Sign {
     }
 
     public static ImageView generateSign() {
-        int   rnd     = (int) (Math.random() * 8) + 1;
+
         Image picture = new Image("res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
         sign.setPreserveRatio(true);
-        sign.setId(Integer.toString(rnd)); //String int-ks saab Integer.parseInt(string)
+        sign.setId(String.valueOf(rnd)); //String int-ks saab Integer.parseInt(string)
         return sign;
     }
 
-    private void Answers() {
-        answers = new HashMap<>();
+    public static VBox getAnswers() {
+        vastused = new ArrayList<String>();
+        vastused.add(0, "Faarvaateri parema ääre tooder");
+        vastused.add(1, "Idatooder");
+        vastused.add(2, "Lõunatooder");
+        vastused.add(3, "Läänetooder");
+        vastused.add(4, "Põhjatooder");
+        vastused.add(5, "Idapoi");
+        vastused.add(6, "Lõunapoi");
+        vastused.add(7, "Läänepoi");
+        vastused.add(8, "Põhjapoi");
+        vastused.add(9, "Faarvaateri vasaku ääre tooder");
+        VBox v = new VBox();
+        RadioButton rb1 = new RadioButton("1");
+        RadioButton rb2 = new RadioButton("2");
+        RadioButton rb3 = new RadioButton("3");
+        RadioButton rb4 = new RadioButton("4");
+        int i = 1;
 
-        answers.put("1", "Idatooder");
-        answers.put("5", "Idapoi");
+        rb1.setText((String) vastused.get(Integer.parseInt(sign.getId())));
 
-        answers.put("2", "Lõunatooder");
-        answers.put("4", "Lõunapoi");
-
-        answers.put("3", "Läänetooder");
-        answers.put("7", "Läänepoi");
-
-        answers.put("4", "Põhjatooder");
-        answers.put("8", "Põhjapoi");
-
-        answers.put("9", "Eraldiseisev oht");
-        answers.put("10", "Faarvaateri parem äär");
-
-        answers.put("11", "Faarvaateri vasak äär");
+        v.getChildren().addAll(rb1,rb2,rb3,rb4);
+        return v;
     }
-
 }

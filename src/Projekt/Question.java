@@ -111,7 +111,7 @@ public class Question {
             vbox.getStyleClass().add("Vbox");
             ImageView sign = Sign.generateSign();
 
-            vbox.getChildren().addAll(Sign.question(),Sign.generateSign());
+            vbox.getChildren().addAll(Sign.question(),Sign.generateSign(), Sign.getAnswers());
 
             layout.setCenter(vbox);
         });

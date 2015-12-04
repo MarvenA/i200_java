@@ -13,7 +13,7 @@
     -fx-background-color: darkcyan;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-pref-width: 100;
+    -fx-pref-width: 120;
     -fx-font-size: 12;
 }
 
@@ -25,9 +25,8 @@
 
 .root {
     -fx-background-color: darkcyan;
-    -fx-font-size: 14;
     -fx-text-fill: white;
-    -fx-pref-width: 400;
+    -fx-pref-width: 500;
     -fx-spacing: 15;
 }
 
@@ -39,9 +38,16 @@
     -fx-wrap-text: true;
 }
 
+.vastused {
+    -fx-spacing: 10;
+    -fx-padding: 20;
+}
+
 .radio-button {
     -fx-text-fill: white;
     -fx-mark-color: darkcyan;
+    -fx-show-tick-marks: false;
+    -fx-font-size: 14;
 }
 
 .radio-button:hover{
@@ -53,11 +59,13 @@
 }
 
 .radio-correct {
-    -fx-text-fill: green;
+    -fx-mark-color: #207130;
+    -fx-text-fill:  #207130;
 }
 
 .radio-incorrect {
     -fx-mark-color: #b61413;
+    -fx-text-fill: #b61413;
 }
 
 .label{

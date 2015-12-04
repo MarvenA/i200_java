@@ -13,7 +13,7 @@ public class Text {
     public Label newText() {
         ArrayList<String> labels = new ArrayList();
 
-        labels.add("Milline kardinaalmärk on kujutatud alloleval pildil?");
+        labels.add("Mis meremärk on kujutatud alloleval pildil?");
         labels.add("Mis meremärk on pildil?");
         labels.add("Mis meremärk on alloleval pildil?");
 

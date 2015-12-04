@@ -1,11 +1,9 @@
 package Projekt;
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -33,11 +31,6 @@ public class Kysimus {
     Button buttonCheck;
     Button buttonNext;
     Button buttonHelp;
-    ToggleGroup vastused;
-    RadioButton rb1;
-    RadioButton rb2;
-    RadioButton rb3;
-    RadioButton rb4;
     ArrayList countRight;
     ArrayList countWrong;
     ArrayList<RadioButton> list;
@@ -61,42 +54,8 @@ public class Kysimus {
         buttonCheck = new Button("Kontrolli");
         buttonNext = new Button("Järgmine");
         buttonNext.setDisable(true);
-
         checkNext.getChildren().addAll(buttonCheck, buttonNext);
         return checkNext;
-    }
-
-    public VBox answers() {
-        vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.setPadding(new Insets(0, 0, 0, 20));
-
-        vastused = new ToggleGroup();
-        rb1 = new RadioButton("Põhjatooder");
-        rb1.setUserData("Põhjatooder");
-        rb2 = new RadioButton("Lõunatooder");
-        rb2.setUserData("Lõunatooder");
-        rb3 = new RadioButton("Idatooder");
-        rb3.setUserData("Idatooder");
-        rb4 = new RadioButton("Läänetooder");
-        rb4.setUserData("Läänetooder");
-        rb1.setToggleGroup(vastused);
-        rb2.setToggleGroup(vastused);
-        rb3.setToggleGroup(vastused);
-        rb4.setToggleGroup(vastused);
-
-        list = new ArrayList<>();
-        list.add(rb1);
-        list.add(rb2);
-        list.add(rb3);
-        list.add(rb4);
-
-        for (int i = 0; i < 4; i++) {
-            int rnd = (int) (Math.random() * (4 - i));
-            vbox.getChildren().add(list.get(rnd));
-            list.remove(rnd);
-        }
-        return vbox;
     }
 
     private void clickOnHelp() {
@@ -120,17 +79,17 @@ public class Kysimus {
 
     private void clickOnNext() {
         buttonNext.setOnAction(event -> {
-            rb1.setSelected(false);
-            rb2.setSelected(false);
-            rb3.setSelected(false);
-            rb4.setSelected(false);
+            sign.rb1.setSelected(false);
+            sign.rb1.setSelected(false);
+            sign.rb1.setSelected(false);
+            sign.rb1.setSelected(false);
 
             centreVbox.getChildren().remove(0, 1);
             centreVbox.getChildren().add(0, question.newText());
             centreVbox.getChildren().remove(1, 2);
             centreVbox.getChildren().add(1, sign.generateSign());
             centreVbox.getChildren().remove(2, 3);
-            centreVbox.getChildren().add(2, answers());
+            centreVbox.getChildren().add(2, sign.answers());
 
             buttonNext.setDisable(true);
             buttonCheck.setDisable(false);
@@ -142,16 +101,20 @@ public class Kysimus {
         countWrong = new ArrayList();
 
         buttonCheck.setOnAction(event -> {
-            if (rb1.isSelected() && (sign.number.equals("4") || sign.number.equals("8"))) {
+
+            if (sign.rb1.isSelected()) {
                 countRight.add(1);
-            } else if (rb2.isSelected() && (sign.number.equals("2") || sign.number.equals("6"))) {
-                countRight.add(1);
-            } else if (rb3.isSelected() && (sign.number.equals("1") || sign.number.equals("5"))) {
-                countRight.add(1);
-            } else if (rb4.isSelected() && (sign.number.equals("3") || sign.number.equals("7"))) {
-                countRight.add(1);
+                sign.rb1.getStyleClass().add("radio-correct");
             } else {
                 countWrong.add(1);
+
+                sign.rb1.setToggleGroup(null);
+                sign.rb1.setSelected(true);
+                sign.rb1.getStyleClass().add("radio-correct");
+
+                if (sign.rb2.isSelected()) sign.rb2.getStyleClass().add("radio-incorrect");
+                else if (sign.rb3.isSelected()) sign.rb3.getStyleClass().add("radio-incorrect");
+                else if (sign.rb4.isSelected()) sign.rb4.getStyleClass().add("radio-incorrect");
             }
             buttonNext.setDisable(false);
             buttonCheck.setDisable(true);

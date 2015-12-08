@@ -22,7 +22,7 @@ public class Sign {
     String number;
 
     public ImageView generateSign() {
-        int rnd = (int) (Math.random() * 8) + 1;
+        int rnd = (int) (Math.random() * 13);
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
@@ -36,16 +36,21 @@ public class Sign {
         answers.getStyleClass().add("vastused");
 
         ArrayList<String> a = new ArrayList<>();
-        a.add("Faarvaatteri parema ääre märk");
+
+        a.add("Laevatee teljepoi. Ohutu vee märk (safe water)");
         a.add("Idatooder");
-        a.add("Lõunatooder");
-        a.add("Läänetooder");
-        a.add("Põhjatooder");
         a.add("Idapoi");
+        a.add("Lõunatooder");
         a.add("Lõunapoi");
+        a.add("Läänetooder");
         a.add("Läänepoi");
+        a.add("Põhjatooder");
         a.add("Põhjapoi");
-        a.add("Faarvaatteri vasaku ääre märk");
+        a.add("Eriotstarbeline märk, mis viitab eripiirkonnale või objektile.");
+        a.add("Eraldiseisva ohu märk. Märgistab väikesemõõtmelist ohtu (< 1 kbt)");
+        a.add("Laevatee parema külje märk");
+        a.add("Laevatee vasaku külje märk");
+
 
         rb1 = new RadioButton(a.get(Integer.parseInt(number)));
         a.remove(rb1.getText());

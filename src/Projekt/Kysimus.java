@@ -38,7 +38,6 @@ public class Kysimus {
     Sign sign = new Sign();
 
     public Kysimus() {
-        //Koosta mängu layout
         window = new Stage();
         setLayout();
         clickOnHelp();
@@ -181,7 +180,7 @@ public class Kysimus {
         Scene scene = new Scene(layOut);
         scene.getStylesheets().add("Projekt/style.css");
         window.setScene(scene);
-        window.setTitle("Test");
+        window.setTitle("Navigatsioonimärgid Eesti vetes");
         window.show();
         window.setOnCloseRequest(event -> System.exit(0));
     }

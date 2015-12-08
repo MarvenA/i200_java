@@ -124,9 +124,10 @@ public class Kysimus {
         buttonFinish.setOnAction(event -> {
 
             int sum = countRight.size() + countWrong.size();
+
             Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
-            Label countR = new Label("Õigeid vastuseid: " + countRight.size());
-            Label countW = new Label("Valesid vastuseid: " + countWrong.size());
+            Label countR = new Label("Õigeid vastuseid:   " + countRight.size());
+            Label countW = new Label("Valesid vastuseid:   " + countWrong.size());
 
             Image wheel = new Image("res/Rool.png");
             ImageView ivWheel = new ImageView(wheel);

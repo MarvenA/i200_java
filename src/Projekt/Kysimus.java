@@ -40,6 +40,11 @@ public class Kysimus {
     public Kysimus() {
         window = new Stage();
         setLayout();
+        clickOnStart();
+
+    }
+
+    private void clickOnStart() {
         clickOnHelp();
         clickOnNext();
         clickOnCheck();

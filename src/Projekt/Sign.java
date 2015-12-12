@@ -1,5 +1,6 @@
 package Projekt;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -14,20 +15,34 @@ import java.util.ArrayList;
 public class Sign {
     public ImageView sign;
     public VBox answers;
+    public Label text;
     RadioButton rb1;
     RadioButton rb2;
     RadioButton rb4;
     RadioButton rb3;
     ToggleGroup radiobuttons;
-    String number;
+    Integer rnd;
+
+    public Label newQuestion() {
+        ArrayList<String> labels = new ArrayList<String>();
+        text = new Label();
+        labels.add("Millise meremärgiga on tegemist?");
+        labels.add("Mis meremärk on kujutatud alloleval pildil?");
+        labels.add("Mis meremärk on pildil?");
+        labels.add("Mis meremärk on alloleval pildil?");
+
+        int rnd = (int) (Math.random() * (labels.size()));
+        text.setText(labels.get(rnd));
+        text.getStyleClass().add("kokkuvote");
+        return text;
+    }
 
     public ImageView generateSign() {
-        int rnd = (int) (Math.random() * 13);
+        rnd = (int) (Math.random() * 13);
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
         sign.setFitHeight(200);
         sign.setPreserveRatio(true);
-        number = Integer.toString(rnd);
         return sign;
     }
 
@@ -51,8 +66,7 @@ public class Sign {
         a.add("Laevatee parema külje märk");
         a.add("Laevatee vasaku külje märk");
 
-
-        rb1 = new RadioButton(a.get(Integer.parseInt(number)));
+        rb1 = new RadioButton(a.get(rnd));
         a.remove(rb1.getText());
         rb2 = new RadioButton(a.get((int) (Math.random() * (a.size()))));
         a.remove(rb2.getText());
@@ -74,7 +88,7 @@ public class Sign {
         list.add(rb4);
 
         for (int i = 0; i < 4; i++) {
-            int rnd = (int) (Math.random() * (4 - i));
+            int rnd = (int) (Math.random() * list.size());
             answers.getChildren().add(list.get(rnd));
             list.remove(rnd);
         }

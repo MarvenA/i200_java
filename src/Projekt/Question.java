@@ -157,6 +157,7 @@ public class Question {
         buttonStart = new Button("Alusta");
         clickOnStart();
         buttonFinish = new Button("Lõpeta");
+        buttonFinish.setDisable(true);
         clickOnFinish();
         topMenu.getChildren().addAll(buttonStart, buttonFinish);
         return topMenu;
@@ -198,16 +199,18 @@ public class Question {
     private VBox introduction() {
         VBox vbox = new VBox();
 
-        Label label = new Label();
-        label.getStyleClass().add("kokkuvote");
-        label.setText("Tegemist on valikvastustega navigatsioonimärkide testiga. Enne järgmise küsimuse juurde suundumist kontrolli vastust. " +
-                "Kui oled hädas, siis kliki Spikril - abi saad kasutada kolm korda. ");
+        Label label1 = new Label();
+        label1.getStyleClass().add("kokkuvote");
+
+        label1.setText("Tegemist on valikvastustega navigatsioonimärkide testiga. Enne järgmise küsimuse juurde suundumist kontrolli vastust. ");
+        Label label2 = new Label("Kui oled hädas, siis kliki Spikril - abi saad kasutada kolm korda.");
+        label2.getStyleClass().add("kokkuvote");
         Image wheel = new Image("res/Rool.png");
         ImageView ivWheel = new ImageView(wheel);
         ivWheel.setFitHeight(180);
         ivWheel.setPreserveRatio(true);
 
-        vbox.getChildren().addAll(ivWheel, label);
+        vbox.getChildren().addAll(ivWheel, label1, label2);
         vbox.setAlignment(Pos.CENTER);
         return vbox;
     }
@@ -217,6 +220,7 @@ public class Question {
             layout.setCenter(centreVbox());
             buttonHelp.setDisable(false);
             buttonStart.setDisable(true);
+            buttonFinish.setDisable(false);
         });
     }
 }

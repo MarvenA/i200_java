@@ -23,6 +23,7 @@ public class Sign {
     ToggleGroup radiobuttons;
     Integer rnd;
 
+    //Genereerib küsimuse
     public Label newQuestion() {
         ArrayList<String> labels = new ArrayList<String>();
         text = new Label();
@@ -31,12 +32,13 @@ public class Sign {
         labels.add("Mis meremärk on pildil?");
         labels.add("Mis meremärk on alloleval pildil?");
 
-        int rnd = (int) (Math.random() * (labels.size()));
-        text.setText(labels.get(rnd));
+        int rand = (int) (Math.random() * (labels.size()));
+        text.setText(labels.get(rand));
         text.getStyleClass().add("kokkuvote");
         return text;
     }
 
+    //Pildi valimine Res kausta salvestatud piltide seast
     public ImageView generateSign() {
         rnd = (int) (Math.random() * 13);
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
@@ -47,10 +49,13 @@ public class Sign {
         return sign;
     }
 
+    //Testi vastuste osa. Meetod tagastab Vboxi, kuhu sisse on pandud 4 vastust
     public VBox answers() {
         answers = new VBox();
         answers.getStyleClass().add("vastused");
 
+        //Igale Res kaustas sisalduva pildi nimetus pannakse ArrayListi vastavale kohale
+        //Pildi Cardinal0.png nimetus läheb kohale 0, Cardinal1.png nimetus kohale 1 jne
         ArrayList<String> a = new ArrayList<>();
         a.add("Laevatee teljepoi. Ohutu vee märk (safe water)");
         a.add("Idatooder");
@@ -66,6 +71,9 @@ public class Sign {
         a.add("Laevatee parema külje märk");
         a.add("Laevatee vasaku külje märk");
 
+        //Juhuslikult genereeritud pildi nimetus ehk siis õige vastus pannakse rb1 nimeks
+        //Ülejäänud kolmele valitakse nimi pildi nimetuste ArrayListist
+        //Samal ajal eemaldatakse juba kasutatud nimetus ArrayListist, et vältida kahe sama nimetuse sattumist nelja vastuse hulka
         rb1 = new RadioButton(a.get(rnd));
         a.remove(rb1.getText());
         rb2 = new RadioButton(a.get((int) (Math.random() * (a.size()))));
@@ -75,12 +83,14 @@ public class Sign {
         rb4 = new RadioButton(a.get((int) (Math.random() * (a.size()))));
         a.remove(rb4.getText());
 
+        //Togglegroup on selleks, et korraga saaks valitud olla üks radiobutton
         radiobuttons = new ToggleGroup();
         rb1.setToggleGroup(radiobuttons);
         rb2.setToggleGroup(radiobuttons);
         rb3.setToggleGroup(radiobuttons);
         rb4.setToggleGroup(radiobuttons);
 
+        //Vasstuste lisamiseks Vboxi erinevas järjekorras lisatakse need ArrayListi,
         ArrayList<RadioButton> list = new ArrayList<>();
         list.add(rb1);
         list.add(rb2);

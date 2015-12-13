@@ -26,7 +26,7 @@ public class Question {
     Button buttonCheck;
     Button buttonNext;
     Button buttonHelp;
-    Integer count = 0;
+
     Integer countRight = 0;
     Integer countWrong = 0;
     Sign sign = new Sign();
@@ -156,7 +156,7 @@ public class Question {
 
             help.kuvaHelp();
 
-            if (help.count()) {
+            if (help.checkCount()) {
                 buttonHelp.setDisable(true);
             }
 
@@ -179,20 +179,17 @@ public class Question {
 
     private VBox introduction() {
         VBox vbox = new VBox();
+        vbox.getStyleClass().add("kokkuvote");
 
-        Label label1 = new Label();
-        label1.getStyleClass().add("kokkuvote");
-
-        label1.setText("Tegemist on valikvastustega navigatsioonimärkide testiga. Enne järgmise küsimuse juurde suundumist kontrolli vastust. ");
+        Label label1 = new Label("Tegemist on valikvastustega navigatsioonimärkide testiga. Enne järgmise küsimuse juurde suundumist kontrolli vastust. ");
         Label label2 = new Label("Kui oled hädas, siis kliki Spikril - abi saad kasutada kolm korda.");
-        label2.getStyleClass().add("kokkuvote");
+
         Image wheel = new Image("res/Rool.png");
         ImageView ivWheel = new ImageView(wheel);
         ivWheel.setFitHeight(180);
         ivWheel.setPreserveRatio(true);
 
-        vbox.getChildren().addAll(ivWheel, label1, label2);
-        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(label1, ivWheel, label2);
         return vbox;
     }
 

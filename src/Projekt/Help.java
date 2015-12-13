@@ -7,7 +7,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- * Created by maus on 13.12.15.
+ * Help sisaldab kõike, mis on seotud spikriga.
+ *
+ * kuvaHelp() on meetod spikri kuvamiseks, sama meetodi sees loendatatkse, mitu korda on spikrit vaadatud
+ * checkCount() on meetod, mis kontrollib kas spikrit on juba kolm korda vaadatud, loendamine käib
  */
 public class Help {
     Integer count = 0;
@@ -33,10 +36,8 @@ public class Help {
         return stageHelp;
     }
 
-    public boolean count() {
-        if(count==3) {
-            return true;
-        }
-        return false;
+    //Kontrollib, kas spikrit on kolm korda kasutatud
+    public boolean checkCount() {
+        return count == 3;
     }
 }

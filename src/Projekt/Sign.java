@@ -41,6 +41,7 @@ public class Sign {
         rnd = (int) (Math.random() * 13);
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
+
         sign.setFitHeight(200);
         sign.setPreserveRatio(true);
         return sign;
@@ -51,7 +52,6 @@ public class Sign {
         answers.getStyleClass().add("vastused");
 
         ArrayList<String> a = new ArrayList<>();
-
         a.add("Laevatee teljepoi. Ohutu vee märk (safe water)");
         a.add("Idatooder");
         a.add("Idapoi");

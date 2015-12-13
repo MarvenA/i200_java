@@ -8,18 +8,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 /**
  * Created by maus on 10.11.2015.
  */
 public class Question {
     Stage stage = new Stage();
-    Stage stageHelp;
     BorderPane layout;
     HBox topMenu;
     VBox centreVbox;
@@ -31,9 +27,10 @@ public class Question {
     Button buttonNext;
     Button buttonHelp;
     Integer count = 0;
-    ArrayList countRight;
-    ArrayList countWrong;
+    Integer countRight = 0;
+    Integer countWrong = 0;
     Sign sign = new Sign();
+    Help help = new Help();
 
     public Question() {
         setupScene();
@@ -54,30 +51,6 @@ public class Question {
         return checkNext;
     }
 
-    private void clickOnHelp() {
-        buttonHelp.setOnAction(e -> {
-            stageHelp = new Stage();
-            stageHelp.setTitle("Kardinaalmärgid");
-
-            Image image1 = new Image("res/Spikker.png");
-            ImageView Spikker = new ImageView();
-            Spikker.setImage(image1);
-
-            StackPane stack = new StackPane();
-            Scene sceneSpikker = new Scene(stack);
-            stack.getChildren().add(Spikker);
-
-            count++;
-            if (count == 3) {
-                buttonHelp.setDisable(true);
-            }
-
-            stageHelp.setScene(sceneSpikker);
-            stageHelp.setResizable(false);
-            stageHelp.show();
-        });
-    }
-
     private void clickOnNext() {
         buttonNext.setOnAction(event -> {
             sign.rb1.setSelected(false);
@@ -85,11 +58,11 @@ public class Question {
             sign.rb1.setSelected(false);
             sign.rb1.setSelected(false);
 
-            centreVbox.getChildren().remove(0, 1);
+            centreVbox.getChildren().remove(0);
             centreVbox.getChildren().add(0, sign.newQuestion());
-            centreVbox.getChildren().remove(1, 2);
+            centreVbox.getChildren().remove(1);
             centreVbox.getChildren().add(1, sign.generateSign());
-            centreVbox.getChildren().remove(2, 3);
+            centreVbox.getChildren().remove(2);
             centreVbox.getChildren().add(2, sign.answers());
 
             buttonNext.setDisable(true);
@@ -98,17 +71,13 @@ public class Question {
     }
 
     private void clickOnCheck() {
-        countRight = new ArrayList();
-        countWrong = new ArrayList();
-
         buttonCheck.setOnAction(event -> {
 
             if (sign.rb1.isSelected()) {
-                countRight.add(1);
+                countRight++;
                 sign.rb1.getStyleClass().add("radio-correct");
             } else {
-                countWrong.add(1);
-
+                countWrong++;
                 sign.rb1.setToggleGroup(null);
                 sign.rb1.setSelected(true);
                 sign.rb1.getStyleClass().add("radio-correct");
@@ -125,11 +94,10 @@ public class Question {
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
 
-            int sum = countRight.size() + countWrong.size();
-
+            int sum = countRight + countWrong;
             Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
-            Label countR = new Label("Õigeid vastuseid:   " + countRight.size());
-            Label countW = new Label("Valesid vastuseid:   " + countWrong.size());
+            Label countR = new Label("Õigeid vastuseid:   " + countRight);
+            Label countW = new Label("Valesid vastuseid:   " + countWrong);
 
             Image compass = new Image("res/Kompass.png");
             ImageView ivCompass = new ImageView(compass);
@@ -178,8 +146,21 @@ public class Question {
         buttonHelp = new Button("Spikker");
         buttonHelp.setDisable(true);
         clickOnHelp();
+
         bottomMenu.getChildren().add(buttonHelp);
         return bottomMenu;
+    }
+
+    private void clickOnHelp() {
+        buttonHelp.setOnAction(e -> {
+
+            help.kuvaHelp();
+
+            if (help.count()) {
+                buttonHelp.setDisable(true);
+            }
+
+        });
     }
 
     private void setupScene() {

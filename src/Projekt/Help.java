@@ -14,10 +14,10 @@ import javafx.stage.Stage;
  */
 public class Help {
     Integer count = 0;
-
+    Stage stageHelp = new Stage();
     public Stage kuvaHelp(){
 
-        Stage stageHelp = new Stage();
+
         stageHelp.setTitle("Navigatsioonimärgid - kardinaal- ja lateraalmärgid");
 
         Image image1 = new Image("res/Spikker.png");
@@ -39,5 +39,9 @@ public class Help {
     //Kontrollib, kas spikrit on kolm korda kasutatud
     public boolean checkCount() {
         return count == 3;
+    }
+
+    public void stageClose() {
+        stageHelp.close();
     }
 }

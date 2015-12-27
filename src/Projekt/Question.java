@@ -71,6 +71,8 @@ public class Question {
                 e.printStackTrace();
             }
 
+            help.stageClose();
+
             buttonNext.setDisable(true);
             buttonCheck.setDisable(false);
         });

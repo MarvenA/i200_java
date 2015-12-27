@@ -7,7 +7,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by maus on 3.12.2015.
@@ -50,26 +53,21 @@ public class Sign {
     }
 
     //Testi vastuste osa. Meetod tagastab Vboxi, kuhu sisse on pandud 4 vastust
-    public VBox answers() {
+    public VBox answers() throws FileNotFoundException {
         answers = new VBox();
         answers.getStyleClass().add("vastused");
 
         //Igale Res kaustas sisalduva pildi nimetus pannakse ArrayListi vastavale kohale
         //Pildi Cardinal0.png nimetus läheb kohale 0, Cardinal1.png nimetus kohale 1 jne
         ArrayList<String> a = new ArrayList<>();
-        a.add("Laevatee teljepoi. Ohutu vee märk (safe water)");
-        a.add("Idatooder");
-        a.add("Idapoi");
-        a.add("Lõunatooder");
-        a.add("Lõunapoi");
-        a.add("Läänetooder");
-        a.add("Läänepoi");
-        a.add("Põhjatooder");
-        a.add("Põhjapoi");
-        a.add("Eriotstarbeline märk, mis viitab eripiirkonnale või objektile.");
-        a.add("Eraldiseisva ohu märk. Märgistab väikesemõõtmelist ohtu (< 1 kbt)");
-        a.add("Laevatee parema külje märk");
-        a.add("Laevatee vasaku külje märk");
+
+        //Vastused loetakse vastuste failist ja salvestatakse Arraylisti
+        //Failist lugemise idee KirkeN projektist (nippide fail) - https://github.com/kirkeN/JavaProjektPrykkar/blob/master/src/Nipp.java
+        //Koodi osa muudetud vastavalt StackOverflow-le - http://stackoverflow.com/questions/11918747/reading-txt-file-contents-and-storing-in-array
+        Scanner sc = new Scanner(new File("C:\\Users\\arvuti\\Documents\\Maus\\Code\\i200_java\\vastused"));
+        while(sc.hasNextLine()) {
+            a.add(sc.nextLine());
+        }
 
         //Juhuslikult genereeritud pildi nimetus ehk siis õige vastus pannakse rb1 nimeks
         //Ülejäänud kolmele valitakse nimi pildi nimetuste ArrayListist

@@ -11,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+
 /**
  * Created by maus on 10.11.2015.
  */
@@ -63,7 +65,11 @@ public class Question {
             centreVbox.getChildren().remove(1);
             centreVbox.getChildren().add(1, sign.generateSign());
             centreVbox.getChildren().remove(2);
-            centreVbox.getChildren().add(2, sign.answers());
+            try {
+                centreVbox.getChildren().add(2, sign.answers());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             buttonNext.setDisable(true);
             buttonCheck.setDisable(false);
@@ -131,7 +137,7 @@ public class Question {
         return topMenu;
     }
 
-    private VBox centreVbox() {
+    private VBox centreVbox() throws FileNotFoundException {
         centreVbox = new VBox();
         centreVbox.getStyleClass().add("Vbox");
 
@@ -195,7 +201,11 @@ public class Question {
 
     public void clickOnStart() {
         buttonStart.setOnAction(event -> {
-            layout.setCenter(centreVbox());
+            try {
+                layout.setCenter(centreVbox());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             buttonHelp.setDisable(false);
             buttonStart.setDisable(true);
             buttonFinish.setDisable(false);

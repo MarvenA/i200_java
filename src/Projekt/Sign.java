@@ -61,11 +61,11 @@ public class Sign {
         //Pildi Cardinal0.png nimetus läheb kohale 0, Cardinal1.png nimetus kohale 1 jne
         ArrayList<String> a = new ArrayList<>();
 
-        //Vastused loetakse vastuste failist ja salvestatakse Arraylisti
+        //Vastused loetakse vastuste failist ja salvestatakse Arraylisti.
         //Failist lugemise idee KirkeN projektist (nippide fail) - https://github.com/kirkeN/JavaProjektPrykkar/blob/master/src/Nipp.java
         //Koodi osa muudetud vastavalt StackOverflow-le - http://stackoverflow.com/questions/11918747/reading-txt-file-contents-and-storing-in-array
-        Scanner sc = new Scanner(new File("C:\\Users\\arvuti\\Documents\\Maus\\Code\\i200_java\\vastused"));
-        while(sc.hasNextLine()) {
+        Scanner sc = new Scanner(new File("C:\\Users\\maus\\Code\\i200_java\\vastused"));
+        while (sc.hasNextLine()) {
             a.add(sc.nextLine());
         }
 

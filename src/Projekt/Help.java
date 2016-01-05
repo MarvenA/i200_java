@@ -40,7 +40,7 @@ public class Help {
     public boolean checkCount() {
         return count == 3;
     }
-
+    //Sulgeb spikri akna enne järgmist küsimust
     public void stageClose() {
         stageHelp.close();
     }

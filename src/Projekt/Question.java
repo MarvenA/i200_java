@@ -1,6 +1,5 @@
 package Projekt;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +14,8 @@ import java.io.FileNotFoundException;
 
 /**
  * Created by maus on 10.11.2015.
+ * Küsimuse klass sisaldab endas kõike, mis on seotud javaFX-ga
+ * *
  */
 public class Question {
     Stage stage = new Stage();
@@ -38,6 +39,8 @@ public class Question {
         setupScene();
     }
 
+    //Kontrollimise ja järgmise küsimuse juurde liikumise nupud
+    //Nupud paigutatakse Hboxi, mis läheb borderpane'i keskel asuva Vboxi viimaseks elemendiks
     public HBox checkNext() {
         checkNext = new HBox();
         checkNext.getStyleClass().add("Hbox");
@@ -55,11 +58,8 @@ public class Question {
 
     private void clickOnNext() {
         buttonNext.setOnAction(event -> {
-            sign.rb1.setSelected(false);
-            sign.rb1.setSelected(false);
-            sign.rb1.setSelected(false);
-            sign.rb1.setSelected(false);
-
+            //Vana küsimus, pilt ja vastused vahetatakse uute vastu
+            //Esmalt eemaldatakse Vboxi vastavalt kohalt ja seejärel pannakse sama koha peale uus
             centreVbox.getChildren().remove(0);
             centreVbox.getChildren().add(0, sign.newQuestion());
             centreVbox.getChildren().remove(1);
@@ -70,9 +70,9 @@ public class Question {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
+            //Sulgeb spikri akna, kui see on lahti jäetud
             help.stageClose();
-
+            //Järgmise küsimuse nupp muutub mittaktiivseks, kontrolli nupp mitteaktiivseks
             buttonNext.setDisable(true);
             buttonCheck.setDisable(false);
         });
@@ -80,20 +80,25 @@ public class Question {
 
     private void clickOnCheck() {
         buttonCheck.setOnAction(event -> {
-
+            //Kasutaja poolt tehtud valiku kontroll
+            //Sign klassis pannakse õige vastus alati sama radiobuttoni (rb1) nimetuseks
+            //Kontrollitakse, kas rb1 on valitud või mitte
             if (sign.rb1.isSelected()) {
                 countRight++;
+                //Õige vastus värvitakse roheliseks
                 sign.rb1.getStyleClass().add("radio-correct");
             } else {
                 countWrong++;
+                //Et samal ajal saaks olla sisse lülitatud kaks valikut, tuleb rb1 üks togglegroupist välja arvata!
                 sign.rb1.setToggleGroup(null);
                 sign.rb1.setSelected(true);
                 sign.rb1.getStyleClass().add("radio-correct");
-
+                //Kontrollitakse, milline valedest valikutest on valitud ja värvitakse roheliseks
                 if (sign.rb2.isSelected()) sign.rb2.getStyleClass().add("radio-incorrect");
                 else if (sign.rb3.isSelected()) sign.rb3.getStyleClass().add("radio-incorrect");
                 else if (sign.rb4.isSelected()) sign.rb4.getStyleClass().add("radio-incorrect");
             }
+            //Pärast kontrollimist muutub järgmise küsimuse nupp aktiivseks
             buttonNext.setDisable(false);
             buttonCheck.setDisable(true);
         });
@@ -120,12 +125,13 @@ public class Question {
             VBox kokkuvote = new VBox();
             kokkuvote.getChildren().addAll(ivCompass, total, countR, countW, ivAnchor);
             kokkuvote.getStyleClass().add("kokkuvote");
-
+            //Borderpane'lt eemaldatakse ülemine ja alumine menüü, jääb ainult kokkuvõte
             layout.getChildren().removeAll(topMenu, bottomMenu);
             layout.setCenter(kokkuvote);
         });
     }
 
+    //Ülemise menüü nupud paigutatakse Hboxi
     private HBox topMenu() {
         topMenu = new HBox();
         topMenu.getStyleClass().add("Hbox");
@@ -147,6 +153,7 @@ public class Question {
         return centreVbox;
     }
 
+    //Alumise menüü jaoks on samuti Hbox, et jääks võimalus nuppe juurde lisada.
     private HBox bottomMenu() {
         bottomMenu = new HBox();
         bottomMenu.getStyleClass().add("Hbox");
@@ -161,9 +168,8 @@ public class Question {
 
     private void clickOnHelp() {
         buttonHelp.setOnAction(e -> {
-
             help.kuvaHelp();
-
+            //Kui spikrit on kolm korda vaadatud lülitub spikri nupp välja
             if (help.checkCount()) {
                 buttonHelp.setDisable(true);
             }
@@ -171,6 +177,7 @@ public class Question {
         });
     }
 
+    //Layout on Borderpane, mille sisse pannakse kaks Hboxi (top ja botoom) ning keskmiseks läheb Vbox.
     private void setupScene() {
         layout = new BorderPane();
         layout.setTop(topMenu());
@@ -185,6 +192,7 @@ public class Question {
         stage.setOnCloseRequest(event -> System.exit(0));
     }
 
+    //Programmi käivitamisel avanev sissejuhatav info
     private VBox introduction() {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("kokkuvote");
@@ -201,6 +209,7 @@ public class Question {
         return vbox;
     }
 
+    //Alusta nupu vajutamisel alustatakse testiga, spikri ja lõpetamise nupp muutub aktiivseks.
     public void clickOnStart() {
         buttonStart.setOnAction(event -> {
             try {

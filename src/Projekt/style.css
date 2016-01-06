@@ -2,7 +2,6 @@
     -fx-border-color: white;
     -fx-border-radius: 0;
     -fx-border-width: 2;
-    -fx-background-radius: 0;
     -fx-background-insets: 1;
     -fx-background-color: darkcyan;
     -fx-text-fill: white;
@@ -17,12 +16,12 @@
     -fx-font-weight: bold;
 }
 
+/*Üldine taust ja akna suurus*/
 .root {
     -fx-background-color: darkcyan;
     -fx-text-fill: white;
     -fx-pref-width: 550;
     -fx-pref-height: 680;
-    -fx-spacing: 15;
 }
 
 .Hbox {
@@ -32,11 +31,9 @@
 }
 
 .Vbox {
-
     -fx-padding: 5,0,5,0;
     -fx-alignment: center;
     -fx-background-color: cadetblue;
-    -fx-wrap-text: true;
 }
 
 .vastused {
@@ -44,6 +41,7 @@
     -fx-padding: 20;
 }
 
+/*Vastuste radiobuttonsite kujundus*/
 .radio-button {
     -fx-text-fill: white;
     -fx-mark-color: darkcyan;
@@ -68,6 +66,7 @@
     -fx-text-fill: #b61413;
 }
 
+/*Sissejuhatus ja küsimused*/
 .label{
     -fx-text-fill: white;
     -fx-font-size: 20;
@@ -76,6 +75,7 @@
     -fx-padding: 20,0,0,0;
 }
 
+/*Viimase vaate labelid ja pildid*/
 .kokkuvote {
     -fx-font-weight: bold;
     -fx-alignment: center;

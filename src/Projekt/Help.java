@@ -44,4 +44,8 @@ public class Help {
     public void stageClose() {
         stageHelp.close();
     }
+
+    public void clearCount() {
+        count = 0;
+    }
 }

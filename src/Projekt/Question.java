@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -29,6 +30,8 @@ public class Question {
     Button buttonCheck;
     Button buttonNext;
     Button buttonHelp;
+    Button btnStrtAgn;
+    Button btnClose;
 
     Integer countRight = 0;
     Integer countWrong = 0;
@@ -41,7 +44,7 @@ public class Question {
 
     //Kontrollimise ja järgmise küsimuse juurde liikumise nupud
     //Nupud paigutatakse Hboxi, mis läheb borderpane'i keskel asuva Vboxi viimaseks elemendiks
-    public HBox checkNext() {
+    private HBox checkNext() {
         checkNext = new HBox();
         checkNext.getStyleClass().add("Hbox");
 
@@ -104,8 +107,38 @@ public class Question {
         });
     }
 
+    //Ülemise menüü nupud paigutatakse Hboxi
+    private HBox topMenu() {
+        topMenu = new HBox();
+        topMenu.getStyleClass().add("Hbox");
+
+        buttonStart = new Button("Alusta");
+        clickOnStart();
+        buttonFinish = new Button("Lõpeta");
+        buttonFinish.setDisable(true);
+        clickOnFinish();
+        topMenu.getChildren().addAll(buttonStart, buttonFinish);
+        return topMenu;
+    }
+
+    //Alusta nupu vajutamisel alustatakse testiga, spikri ja lõpetamise nupp muutub aktiivseks.
+    private void clickOnStart() {
+        buttonStart.setOnAction(event -> {
+            try {
+                layout.setCenter(centreVbox());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            buttonHelp.setDisable(false);
+            buttonStart.setDisable(true);
+            buttonFinish.setDisable(false);
+        });
+    }
+
     private void clickOnFinish() {
         buttonFinish.setOnAction(event -> {
+            //Borderpane'lt eemaldatakse ülemine ja alumine menüü, jääb ainult kokkuvõte
+            layout.getChildren().removeAll(topMenu, bottomMenu);
 
             int sum = countRight + countWrong;
             Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
@@ -122,27 +155,34 @@ public class Question {
             ivAnchor.setFitHeight(180);
             ivAnchor.setPreserveRatio(true);
 
+            btnStrtAgn = new Button("Alusta uuesti");
+            clickOnStrtAgn();
+            btnClose = new Button("Sulge");
+            clickOnClose();
+
+            bottomMenu.getChildren().removeAll(buttonHelp);
+            bottomMenu.getChildren().addAll(btnStrtAgn, btnClose);
+
             VBox kokkuvote = new VBox();
-            kokkuvote.getChildren().addAll(ivCompass, total, countR, countW, ivAnchor);
+            kokkuvote.getChildren().addAll(ivCompass, total, countR, countW, ivAnchor, bottomMenu);
             kokkuvote.getStyleClass().add("kokkuvote");
-            //Borderpane'lt eemaldatakse ülemine ja alumine menüü, jääb ainult kokkuvõte
-            layout.getChildren().removeAll(topMenu, bottomMenu);
+
             layout.setCenter(kokkuvote);
         });
     }
+    //Valides alusta uuesti käivitatakse programm algusest ja nullitakse loendurid
+    private void clickOnStrtAgn() {
+        btnStrtAgn.setOnAction(event -> {
+            countRight = 0;
+            countWrong = 0;
+            help.clearCount();
+            buttonHelp.setDisable(false);
+            setupScene();
+        });
+    }
 
-    //Ülemise menüü nupud paigutatakse Hboxi
-    private HBox topMenu() {
-        topMenu = new HBox();
-        topMenu.getStyleClass().add("Hbox");
-
-        buttonStart = new Button("Alusta");
-        clickOnStart();
-        buttonFinish = new Button("Lõpeta");
-        buttonFinish.setDisable(true);
-        clickOnFinish();
-        topMenu.getChildren().addAll(buttonStart, buttonFinish);
-        return topMenu;
+    private void clickOnClose() {
+        btnClose.setOnAction(event -> stage.close());
     }
 
     private VBox centreVbox() throws FileNotFoundException {
@@ -207,19 +247,5 @@ public class Question {
 
         vbox.getChildren().addAll(label1, ivWheel, label2);
         return vbox;
-    }
-
-    //Alusta nupu vajutamisel alustatakse testiga, spikri ja lõpetamise nupp muutub aktiivseks.
-    public void clickOnStart() {
-        buttonStart.setOnAction(event -> {
-            try {
-                layout.setCenter(centreVbox());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            buttonHelp.setDisable(false);
-            buttonStart.setDisable(true);
-            buttonFinish.setDisable(false);
-        });
     }
 }

@@ -19,6 +19,7 @@ public class Sign {
     public ImageView sign;
     public VBox answers;
     public Label text;
+    Integer count = 0;
     RadioButton rb1;
     RadioButton rb2;
     RadioButton rb4;
@@ -29,6 +30,7 @@ public class Sign {
     //Genereerib küsimuse
     public Label newQuestion() {
         ArrayList<String> labels = new ArrayList<String>();
+        count++;
         text = new Label();
         labels.add("Millise meremärgiga on tegemist?");
         labels.add("Mis meremärk on kujutatud alloleval pildil?");
@@ -36,14 +38,22 @@ public class Sign {
         labels.add("Mis meremärk on alloleval pildil?");
 
         int rand = (int) (Math.random() * (labels.size()));
-        text.setText(labels.get(rand));
+        text.setText(count + ". " + labels.get(rand));
         text.getStyleClass().add("kokkuvote");
         return text;
     }
 
+    public void clearCount() {
+        count = 0;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
     //Pildi valimine Res kausta salvestatud piltide seast
     public ImageView generateSign() {
-        rnd = (int) (Math.random() * 13);
+        rnd = (int) (Math.random() * 15);
         Image picture = new Image("Res/Cardinal" + rnd + ".png");
         sign = new ImageView(picture);
 
@@ -102,4 +112,5 @@ public class Sign {
         }
         return answers;
     }
+
 }

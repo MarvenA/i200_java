@@ -20,7 +20,7 @@
 .root {
     -fx-background-color: darkcyan;
     -fx-text-fill: white;
-    -fx-pref-width: 550;
+    -fx-pref-width: 600;
     -fx-pref-height: 680;
 }
 

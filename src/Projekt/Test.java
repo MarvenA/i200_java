@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,7 +17,7 @@ import java.io.FileNotFoundException;
  * Küsimuse klass sisaldab endas kõike, mis on seotud javaFX-ga
  * *
  */
-public class Question {
+public class Test {
     Stage stage = new Stage();
     BorderPane layout;
     HBox topMenu;
@@ -38,7 +37,7 @@ public class Question {
     Sign sign = new Sign();
     Help help = new Help();
 
-    public Question() {
+    public Test() {
         setupScene();
     }
 
@@ -140,8 +139,8 @@ public class Question {
             //Borderpane'lt eemaldatakse ülemine ja alumine menüü, jääb ainult kokkuvõte
             layout.getChildren().removeAll(topMenu, bottomMenu);
 
-            int sum = countRight + countWrong;
-            Label total = new Label("Vastasid kokku " + sum + " küsimusele.");
+            //int sum = countRight + countWrong;
+            Label total = new Label("Vastasid kokku " + sign.getCount() + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid:   " + countRight);
             Label countW = new Label("Valesid vastuseid:   " + countWrong);
 
@@ -170,12 +169,14 @@ public class Question {
             layout.setCenter(kokkuvote);
         });
     }
-    //Valides alusta uuesti käivitatakse programm algusest ja nullitakse loendurid
+
+    //Valides "Alusta uuesti" käivitatakse programm algusest ja nullitakse loendurid
     private void clickOnStrtAgn() {
         btnStrtAgn.setOnAction(event -> {
             countRight = 0;
             countWrong = 0;
             help.clearCount();
+            sign.clearCount();
             buttonHelp.setDisable(false);
             setupScene();
         });
@@ -198,7 +199,7 @@ public class Question {
         bottomMenu = new HBox();
         bottomMenu.getStyleClass().add("Hbox");
 
-        buttonHelp = new Button("Spikker");
+        buttonHelp = new Button("Spikker (" + (3 - help.getCount()) + ")");
         buttonHelp.setDisable(true);
         clickOnHelp();
 
@@ -209,11 +210,11 @@ public class Question {
     private void clickOnHelp() {
         buttonHelp.setOnAction(e -> {
             help.kuvaHelp();
+            buttonHelp.setText("Spikker (" + (3 - help.getCount()) + ")");
             //Kui spikrit on kolm korda vaadatud lülitub spikri nupp välja
             if (help.checkCount()) {
                 buttonHelp.setDisable(true);
             }
-
         });
     }
 

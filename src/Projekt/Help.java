@@ -8,14 +8,15 @@ import javafx.stage.Stage;
 
 /**
  * Help sisaldab kõike, mis on seotud spikriga.
- *
+ * <p>
  * kuvaHelp() on meetod spikri kuvamiseks, sama meetodi sees loendatatkse, mitu korda on spikrit vaadatud
  * checkCount() on meetod, mis kontrollib kas spikrit on juba kolm korda vaadatud, loendamine käib
  */
 public class Help {
     Integer count = 0;
     Stage stageHelp = new Stage();
-    public Stage kuvaHelp(){
+
+    public Stage kuvaHelp() {
 
 
         stageHelp.setTitle("Navigatsioonimärgid - kardinaal- ja lateraalmärgid");
@@ -40,6 +41,7 @@ public class Help {
     public boolean checkCount() {
         return count == 3;
     }
+
     //Sulgeb spikri akna enne järgmist küsimust
     public void stageClose() {
         stageHelp.close();
@@ -47,5 +49,9 @@ public class Help {
 
     public void clearCount() {
         count = 0;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

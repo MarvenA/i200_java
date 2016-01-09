@@ -139,8 +139,7 @@ public class Test {
             //Borderpane'lt eemaldatakse ülemine ja alumine menüü, jääb ainult kokkuvõte
             layout.getChildren().removeAll(topMenu, bottomMenu);
 
-            //int sum = countRight + countWrong;
-            Label total = new Label("Vastasid kokku " + sign.getCount() + " küsimusele.");
+            Label total = new Label("Vastasid kokku " + (countRight+countWrong) + " küsimusele.");
             Label countR = new Label("Õigeid vastuseid:   " + countRight);
             Label countW = new Label("Valesid vastuseid:   " + countWrong);
 

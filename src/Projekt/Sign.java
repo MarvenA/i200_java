@@ -47,10 +47,6 @@ public class Sign {
         count = 0;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
     //Pildi valimine Res kausta salvestatud piltide seast
     public ImageView generateSign() {
         rnd = (int) (Math.random() * 15);
